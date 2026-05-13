@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IA Solutionz — Reliable Systems. Real Results.</title>
+<meta name="description" content="IA Solutionz builds practical, reliable software systems for Nigerian schools. Products: School Record System (SRS) and School Pickup Solution (SPS)."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0D1B2A;
+    --navy2:   #112240;
+    --accent:  #1A73E8;
+    --accent2: #0EA5E9;
+    --gold:    #F59E0B;
+    --white:   #FFFFFF;
+    --off:     #F8FAFC;
+    --light:   #F1F5F9;
+    --border:  #E2E8F0;
+    --mid:     #94A3B8;
+    --text:    #1E293B;
+    --muted:   #64748B;
+    --serif:   'DM Serif Display', serif;
+    --sans:    'DM Sans', sans-serif;
+    --radius:  12px;
+    --shadow:  0 4px 24px rgba(13,27,42,0.08);
+    --shadow-lg: 0 12px 48px rgba(13,27,42,0.13);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ───────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5vw;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: var(--shadow); }
+
+  .nav-brand {
+    display: flex; align-items: baseline; gap: 8px;
+    text-decoration: none;
+  }
+  .nav-brand-name {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--navy);
+    letter-spacing: -.01em;
+  }
+  .nav-brand-tag {
+    font-size: .7rem;
+    font-weight: 500;
+    color: var(--mid);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: .875rem; font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    transition: background .2s, transform .15s !important;
+  }
+  .nav-cta:hover { background: #1557c0 !important; transform: translateY(-1px); }
+
+  .nav-toggle {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--navy); border-radius: 2px;
+    transition: .3s;
+  }
+
+  /* ── HERO ──────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 5vw 80px;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .07;
+  }
+  .hero-blob-1 {
+    width: 600px; height: 600px;
+    background: var(--accent);
+    top: -200px; right: -150px;
+  }
+  .hero-blob-2 {
+    width: 400px; height: 400px;
+    background: var(--gold);
+    bottom: -100px; left: -100px;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .4;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: .8rem; font-weight: 600;
+    color: var(--accent);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-eyebrow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .4; transform: scale(1.4); }
+  }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    color: var(--navy);
+    letter-spacing: -.02em;
+    margin-bottom: 24px;
+    animation: fadeUp .6s .1s ease both;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    animation: fadeUp .6s .2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    animation: fadeUp .6s .3s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-weight: 600; font-size: .95rem;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 16px rgba(13,27,42,.2);
+  }
+  .btn-primary:hover {
+    background: var(--navy2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13,27,42,.25);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-weight: 500; font-size: .95rem;
+    text-decoration: none;
+    transition: border-color .2s, color .2s, transform .15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-products {
+    position: absolute; right: 5vw; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 16px;
+    animation: fadeLeft .7s .4s ease both;
+  }
+
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateY(-50%) translateX(30px); }
+    to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+
+  .hero-product-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    width: 260px;
+    box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none; color: inherit;
+  }
+  .hero-product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-product-card-tag {
+    font-size: .7rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .hero-product-card-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .hero-product-card-desc {
+    font-size: .8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .hero-product-card-bar {
+    height: 3px;
+    border-radius: 2px;
+    margin-top: 14px;
+  }
+
+  /* ── SECTION SHARED ────────────────────── */
+  section { padding: 96px 5vw; }
+
+  .section-label {
+    font-size: .75rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ── ABOUT ─────────────────────────────── */
+  #about { background: var(--off); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1100px;
+  }
+
+  .about-left .section-sub { max-width: 100%; margin-bottom: 32px; }
+
+  .about-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .about-value {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .about-value-icon {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .about-value-title {
+    font-weight: 600; font-size: .9rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .about-value-text {
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .about-right {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 48px 40px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-right::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: .08;
+  }
+  .about-right-quote {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--white);
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  .about-right-text {
+    font-size: .9rem;
+    color: rgba(255,255,255,.65);
+    line-height: 1.7;
+    position: relative; z-index: 1;
+  }
+  .about-right-divider {
+    width: 40px; height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 24px 0;
+  }
+  .about-right-stat {
+    display: flex; gap: 32px;
+    position: relative; z-index: 1;
+  }
+  .about-stat-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--white);
+    line-height: 1;
+  }
+  .about-stat-label {
+    font-size: .78rem;
+    color: rgba(255,255,255,.5);
+    margin-top: 4px;
+  }
+
+  /* ── PRODUCTS SHARED ───────────────────── */
+  .product-section { position: relative; }
+  #srs { background: var(--white); }
+  #sps { background: var(--off); }
+
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+    max-width: 1100px;
+  }
+  .product-layout.reverse { direction: rtl; }
+  .product-layout.reverse > * { direction: ltr; }
+
+  .product-eyebrow {
+    display: inline-block;
+    background: var(--light);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: .7rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .product-features {
+    display: flex; flex-direction: column; gap: 12px;
+    margin: 28px 0;
+  }
+  .product-feature {
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .product-feature-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .product-feature-text strong {
+    display: block;
+    font-size: .88rem; font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .product-feature-text span {
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .product-cta-block {
+    margin-top: 12px;
+    display: flex; align-items: center; gap: 16px;
+  }
+
+  .product-visual {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 40px 36px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-visual::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    border: 40px solid rgba(255,255,255,.04);
+  }
+
+  .product-visual-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    position: relative; z-index: 1;
+  }
+  .product-visual-sub {
+    font-size: .8rem;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 28px;
+    position: relative; z-index: 1;
+  }
+
+  .product-visual-items {
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative; z-index: 1;
+  }
+  .product-visual-item {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: .82rem;
+    color: rgba(255,255,255,.8);
+  }
+  .product-visual-item-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .product-pricing-note {
+    margin-top: 20px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative; z-index: 1;
+  }
+  .product-pricing-note-label {
+    font-size: .65rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .product-pricing-note-text {
+    font-size: .82rem;
+    color: rgba(255,255,255,.65);
+    line-height: 1.5;
+  }
+
+  /* ── BUNDLE BANNER ─────────────────────── */
+  #bundle {
+    background: var(--navy);
+    padding: 64px 5vw;
+  }
+  .bundle-inner {
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .bundle-eyebrow {
+    display: inline-block;
+    background: rgba(245,158,11,.15);
+    border: 1px solid rgba(245,158,11,.3);
+    color: var(--gold);
+    font-size: .7rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .bundle-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--white);
+    letter-spacing: -.02em;
+    margin-bottom: 16px;
+  }
+  .bundle-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,.55);
+    max-width: 560px; margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .bundle-products {
+    display: flex; justify-content: center; gap: 16px;
+    flex-wrap: wrap; margin-bottom: 36px;
+  }
+  .bundle-pill {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 600; font-size: .9rem;
+  }
+  .bundle-plus {
+    color: rgba(255,255,255,.3);
+    font-size: 1.5rem;
+    align-self: center;
+  }
+
+  /* ── CONTACT ───────────────────────────── */
+  #contact { background: var(--white); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 72px;
+    align-items: start;
+    max-width: 1100px;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px;
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .contact-item-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .contact-item-label {
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 3px;
+  }
+  .contact-item-value {
+    font-weight: 500; font-size: .9rem;
+    color: var(--text);
+  }
+  .contact-item-value a { color: var(--accent); text-decoration: none; }
+  .contact-item-value a:hover { text-decoration: underline; }
+
+  .contact-form {
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 36px;
+  }
+  .contact-form h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .contact-form p {
+    font-size: .875rem; color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label {
+    font-size: .8rem; font-weight: 600;
+    color: var(--text);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--sans);
+    font-size: .9rem;
+    color: var(--text);
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,115,232,.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none; cursor: pointer;
+    font-family: var(--sans);
+    font-size: .95rem; font-weight: 600;
+    padding: 14px;
+    border-radius: var(--radius);
+    transition: background .2s, transform .15s;
+    margin-top: 4px;
+  }
+  .form-submit:hover { background: var(--navy2); transform: translateY(-1px); }
+  .form-submit:active { transform: translateY(0); }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 24px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius);
+    color: #166534;
+    font-weight: 500;
+    margin-top: 12px;
+  }
+
+  /* ── FOOTER ────────────────────────────── */
+  footer {
+    background: var(--navy);
+    padding: 48px 5vw 32px;
+    color: rgba(255,255,255,.5);
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: white;
+  }
+  .footer-brand span {
+    display: block;
+    font-family: var(--sans);
+    font-size: .75rem;
+    font-weight: 400;
+    color: rgba(255,255,255,.4);
+    margin-top: 3px;
+  }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: .82rem;
+    color: rgba(255,255,255,.4);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,.8); }
+  .footer-copy { font-size: .78rem; }
+
+  /* ── WHATSAPP FAB ──────────────────────── */
+  .whatsapp-fab {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    width: 56px; height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,.4);
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .whatsapp-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(37,211,102,.5);
+  }
+  .whatsapp-fab svg { width: 28px; height: 28px; fill: white; }
+
+  /* ── ANIMATIONS ────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ────────────────────────── */
+  @media (max-width: 960px) {
+    .hero-products { display: none; }
+    .about-grid,
+    .product-layout,
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .product-layout.reverse { direction: ltr; }
+    .about-right { padding: 36px 28px; }
+    .contact-form { padding: 28px 24px; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; flex-direction: column; position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: white; border-bottom: 1px solid var(--border);
+      padding: 20px; gap: 16px; z-index: 99; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: flex; }
+    section { padding: 64px 20px; }
+    #hero { padding: 100px 20px 64px; }
+    .about-values { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .bundle-products { flex-direction: column; align-items: center; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">
+    <span class="nav-brand-name">IA Solutionz</span>
+    <span class="nav-brand-tag">Systems &amp; Automation</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#srs">SRS</a></li>
+    <li><a href="#sps">SPS</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Built for Nigerian Schools
+    </div>
+    <h1 class="hero-headline">
+      Reliable Systems.<br/><em>Real Results.</em>
+    </h1>
+    <p class="hero-sub">
+      IA Solutionz builds practical, purpose-built software that brings calm, 
+      accountability, and efficiency to how Nigerian schools operate — every day, every term.
+    </p>
+    <div class="hero-actions">
+      <a href="#srs" class="btn-primary">Explore Our Products ↓</a>
+      <a href="#contact" class="btn-outline">Talk to Us</a>
+    </div>
+  </div>
+  <div class="hero-products">
+    <a href="#srs" class="hero-product-card">
+      <div class="hero-product-card-tag">Product 01</div>
+      <div class="hero-product-card-name">School Record System</div>
+      <div class="hero-product-card-desc">Students, fees, results, staff — all in one organised platform.</div>
+      <div class="hero-product-card-bar" style="background: linear-gradient(90deg, #1A73E8, #0EA5E9);"></div>
+    </a>
+    <a href="#sps" class="hero-product-card">
+      <div class="hero-product-card-tag">Product 02</div>
+      <div class="hero-product-card-name">School Pickup Solution</div>
+      <div class="hero-product-card-desc">A calmer, safer, more accountable end-of-day pickup process.</div>
+      <div class="hero-product-card-bar" style="background: linear-gradient(90deg, #F59E0B, #F97316);"></div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid reveal">
+    <div class="about-left">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">We build for the schools that build the future</h2>
+      <p class="section-sub">
+        IA Solutionz was founded with a clear purpose: to build software that actually works for 
+        Nigerian schools — not adapted from foreign systems, not over-engineered, and not dependent 
+        on conditions that don't exist here.
+      </p>
+      <p class="section-sub" style="margin-top:14px;">
+        Every product we build starts with a real problem observed in real schools. We sit with 
+        administrators, watch how things break down, and design systems that fix the root — 
+        not just the symptom. Our goal is not to replace how your school works. It is to make 
+        it work better.
+      </p>
+      <div class="about-values">
+        <div class="about-value">
+          <div class="about-value-icon">🎯</div>
+          <div class="about-value-title">Purpose-Built</div>
+          <div class="about-value-text">Designed specifically for Nigerian school environments — not retrofitted.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">🤝</div>
+          <div class="about-value-title">We Grow Together</div>
+          <div class="about-value-text">Your success is our success. We are invested in every school we work with.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">🛡️</div>
+          <div class="about-value-title">Low Risk Adoption</div>
+          <div class="about-value-text">Every product starts with a trial. No disruption, no forced commitment.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">⚙️</div>
+          <div class="about-value-title">Always Supported</div>
+          <div class="about-value-text">We are available from day one. You are never left to figure things out alone.</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="about-right-quote">
+        "Nigerian schools deserve software that understands them."
+      </div>
+      <div class="about-right-text">
+        Too many schools still manage critical records with registers, notebooks, and 
+        informal processes — not because they want to, but because the available tools 
+        were never built for their context. We are changing that, one school at a time.
+      </div>
+      <div class="about-right-divider"></div>
+      <div class="about-right-stat">
+        <div>
+          <div class="about-stat-num">2</div>
+          <div class="about-stat-label">Products in market</div>
+        </div>
+        <div>
+          <div class="about-stat-num">1</div>
+          <div class="about-stat-label">Trusted client (growing)</div>
+        </div>
+        <div>
+          <div class="about-stat-num">∞</div>
+          <div class="about-stat-label">Commitment to quality</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SRS -->
+<section id="srs">
+  <div class="product-layout reveal">
+    <div class="product-left">
+      <div class="product-eyebrow">Product 01 — SRS</div>
+      <h2 class="section-title">School Record<br/>System</h2>
+      <p class="section-sub">
+        One system for every record, every term. SRS gives your school a single organised 
+        platform to manage students, collect fees, record results, and run your administration 
+        — without the chaos of scattered registers and spreadsheets.
+      </p>
+      <div class="product-features">
+        <div class="product-feature">
+          <div class="product-feature-icon">📋</div>
+          <div class="product-feature-text">
+            <strong>Student Records</strong>
+            <span>Full profiles from admission to graduation. Withdrawals and alumni tracked cleanly.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">💳</div>
+          <div class="product-feature-text">
+            <strong>Fee Management</strong>
+            <span>Track payments, generate receipts, and view outstanding balances in real time.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">📊</div>
+          <div class="product-feature-text">
+            <strong>Results &amp; Report Cards</strong>
+            <span>Scores entered, approved, and published. Polished PDF report cards generated instantly.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">👥</div>
+          <div class="product-feature-text">
+            <strong>Role-Based Access</strong>
+            <span>Admin, Principal, Bursar, Teacher — each role sees exactly what they need.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">📱</div>
+          <div class="product-feature-text">
+            <strong>Any Device, Any Browser</strong>
+            <span>No installation required. Works on phones, tablets, and computers.</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-cta-block">
+        <a href="#contact" class="btn-primary">Request a Demo</a>
+        <a href="#bundle" class="btn-outline" style="font-size:.875rem;">See Bundle Offer</a>
+      </div>
+    </div>
+    <div class="product-visual">
+      <div class="product-visual-title">School Record System</div>
+      <div class="product-visual-sub">What your school gains on day one</div>
+      <div class="product-visual-items">
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#1A73E8;"></div>
+          Every student record, organised and searchable
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#0EA5E9;"></div>
+          Fee payments tracked with full history
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#1A73E8;"></div>
+          Results compiled and approved digitally
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#0EA5E9;"></div>
+          Report cards printed in seconds
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#1A73E8;"></div>
+          Full multi-term academic history preserved
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#0EA5E9;"></div>
+          Staff managed with role-based access control
+        </div>
+      </div>
+      <div class="product-pricing-note">
+        <div class="product-pricing-note-label">Pricing</div>
+        <div class="product-pricing-note-text">
+          Per student, per term — your fee reflects exactly what you use. 
+          As your school grows, the system grows with you.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPS -->
+<section id="sps">
+  <div class="product-layout reverse reveal">
+    <div class="product-visual" style="background: linear-gradient(135deg, #0D1B2A 60%, #1a2f1a);">
+      <div class="product-visual-title">School Pickup Solution</div>
+      <div class="product-visual-sub">What changes from the first day</div>
+      <div class="product-visual-items">
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#F59E0B;"></div>
+          Teachers notified the moment a parent arrives
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#F97316;"></div>
+          Gate staff no longer sole decision-makers
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#F59E0B;"></div>
+          Every pickup logged automatically
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#F97316;"></div>
+          Missed or delayed pickups clearly visible
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#F59E0B;"></div>
+          No parent accounts or app downloads required
+        </div>
+        <div class="product-visual-item">
+          <div class="product-visual-item-dot" style="background:#F97316;"></div>
+          Works even if the system goes offline
+        </div>
+      </div>
+      <div class="product-pricing-note" style="border-color:rgba(245,158,11,.2);">
+        <div class="product-pricing-note-label" style="color:#F59E0B;">Pricing</div>
+        <div class="product-pricing-note-text">
+          Per student, per term. Bundle with SRS for a combined discount — 
+          one provider, one relationship, better value.
+        </div>
+      </div>
+    </div>
+    <div class="product-right">
+      <div class="product-eyebrow" style="color:#F59E0B; border-color:rgba(245,158,11,.2); background:rgba(245,158,11,.06);">Product 02 — SPS</div>
+      <h2 class="section-title">School Pickup<br/>Solution</h2>
+      <p class="section-sub">
+        School pickup is often the most stressful part of the school day. SPS brings calm, 
+        visibility, and accountability to the process — without disrupting how your school 
+        already operates.
+      </p>
+      <div class="product-features">
+        <div class="product-feature">
+          <div class="product-feature-icon">🔔</div>
+          <div class="product-feature-text">
+            <strong>Instant Teacher Notifications</strong>
+            <span>Teachers are alerted the moment a parent checks in at the gate.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">📋</div>
+          <div class="product-feature-text">
+            <strong>Automatic Pickup Logs</strong>
+            <span>Every pickup is recorded. Missed or late collections are immediately visible.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">🪪</div>
+          <div class="product-feature-text">
+            <strong>QR Card System</strong>
+            <span>Parents present a simple QR card at the gate. No app, no account, no friction.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">🛡️</div>
+          <div class="product-feature-text">
+            <strong>Fail-Safe Design</strong>
+            <span>If the system is unavailable, pickup continues normally. No child is ever blocked.</span>
+          </div>
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-icon">🚀</div>
+          <div class="product-feature-text">
+            <strong>Pilot First, Always</strong>
+            <span>Start with one class for a few days. Fully reversible. No obligation to proceed.</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-cta-block">
+        <a href="#contact" class="btn-primary" style="background:#F59E0B; box-shadow:0 4px 16px rgba(245,158,11,.3);">Request a Pilot</a>
+        <a href="#bundle" class="btn-outline" style="font-size:.875rem;">See Bundle Offer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE -->
+<section id="bundle" style="padding: 80px 5vw;">
+  <div class="bundle-inner reveal">
+    <div class="bundle-eyebrow">Special Offer</div>
+    <h2 class="bundle-title">Better together — SRS + SPS Bundle</h2>
+    <p class="bundle-sub">
+      Schools that adopt both products benefit from a combined discount. 
+      One provider, one relationship, one point of contact — and better value 
+      than subscribing to each separately.
+    </p>
+    <div class="bundle-products">
+      <div class="bundle-pill">School Record System</div>
+      <div class="bundle-plus">+</div>
+      <div class="bundle-pill">School Pickup Solution</div>
+    </div>
+    <a href="#contact" class="btn-primary" style="background:var(--gold); color:var(--navy); box-shadow:0 4px 20px rgba(245,158,11,.35);">
+      Ask About the Bundle
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid reveal">
+    <div>
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's talk about your school</h2>
+      <p class="section-sub">
+        Whether you want a product walkthrough, a pilot, or just have questions — 
+        reach out. We respond promptly and there is no obligation.
+      </p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-icon" style="background:#e7f3e8;">💬</div>
+          <div>
+            <div class="contact-item-label">WhatsApp</div>
+            <div class="contact-item-value">
+              <a href="https://wa.me/2348051444295" target="_blank">0805 144 4295</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon" style="background:#e8f0fe;">✉️</div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">
+              <a href="mailto:iaworldwide11@gmail.com">iaworldwide11@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon" style="background:#fef9ec;">📞</div>
+          <div>
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-value">0805 144 4295</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Send us a message</h3>
+      <p>We'll get back to you within 24 hours.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">Your Name</label>
+          <input type="text" id="fname" placeholder="e.g. Mrs. Adaobi"/>
+        </div>
+        <div class="form-group">
+          <label for="school">School Name</label>
+          <input type="text" id="school" placeholder="e.g. Greenfield Academy"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g. 0801 234 5678"/>
+      </div>
+      <div class="form-group">
+        <label for="interest">I'm interested in</label>
+        <select id="interest">
+          <option value="">— Select a product —</option>
+          <option>School Record System (SRS)</option>
+          <option>School Pickup Solution (SPS)</option>
+          <option>Both — SRS + SPS Bundle</option>
+          <option>Just exploring</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell us a bit about your school and what you're looking for..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
+      <div class="form-success" id="formSuccess">
+        ✅ Message received! We'll be in touch within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      IA Solutionz
+      <span>Reliable Systems. Real Results.</span>
+    </div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#srs">SRS</a>
+      <a href="#sps">SPS</a>
+      <a href="#contact">Contact</a>
+      <a href="https://wa.me/2348051444295" target="_blank">WhatsApp</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 IA Solutionz. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/2348051444295" target="_blank" class="whatsapp-fab" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile nav toggle
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Contact form (mailto fallback — replace with backend endpoint if needed)
+  function handleSubmit() {
+    const name    = document.getElementById('fname').value.trim();
+    const school  = document.getElementById('school').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const interest = document.getElementById('interest').value;
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !phone) {
+      alert('Please enter your name and phone number.');
+      return;
+    }
+
+    const body = encodeURIComponent(
+      `Name: ${name}\nSchool: ${school}\nPhone: ${phone}\nInterest: ${interest}\n\nMessage:\n${message}`
+    );
+    const subject = encodeURIComponent(`SRS/SPS Enquiry from ${school || name}`);
+    window.location.href = `mailto:iaworldwide11@gmail.com?subject=${subject}&body=${body}`;
+
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
